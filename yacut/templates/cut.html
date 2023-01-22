@@ -29,8 +29,8 @@
               <div>
                 {{ form.custom_id(class="form-control form-control-lg py-2 mb-3", placeholder=form.custom_id.label.text) }}
                 <p>
-                  {% if form.original_link.errors %}
-                    {% for error in form.original_link.errors %}
+                  {% if form.custom_id.errors %}
+                    {% for error in form.custom_id.errors %}
                       <span style="color:red">{{ error }}</span>
                     {% endfor %}
                   {% endif %}
