@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}{% endblock title %}
+{% block title %} {{ super() }} {% endblock title %}
 {% block content %}  
 <main>
   <section class="container my-5 px-4">
@@ -17,23 +17,19 @@
             {{ form.csrf_token }}
             <div>
               <div>
-                {{ form.original_link(class="form-control form-control-lg py-2 mb-3", placeholder=form.original_link.label.text) }}
+                {{ form.original_link(class="form-control form-control-lg py-2 mb-3",
+                   placeholder=form.original_link.label.text) }}
                 <p>
-                  {% if form.original_link.errors %}
-                    {% for error in form.original_link.errors %}
-                      <span style="color:red">{{ error }}</span>
-                    {% endfor %}
-                  {% endif %}
+                  {% set errors = form.original_link.errors %}
+                  {% include "error.html" %}
                 </p>
               </div>
               <div>
-                {{ form.custom_id(class="form-control form-control-lg py-2 mb-3", placeholder=form.custom_id.label.text) }}
+                {{ form.custom_id(class="form-control form-control-lg py-2 mb-3",
+                   placeholder=form.custom_id.label.text) }}
                 <p>
-                  {% if form.custom_id.errors %}
-                    {% for error in form.custom_id.errors %}
-                      <span style="color:red">{{ error }}</span>
-                    {% endfor %}
-                  {% endif %}
+                  {% set errors = form.custom_id.errors %}
+                  {% include "error.html" %}
                 </p>
               </div>
 
