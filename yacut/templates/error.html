@@ -1,5 +1,7 @@
-{% if errors %}
-  {% for error in errors %}
-    <span style="color:red">{{ error }}</span>
-  {% endfor %}
-{% endif %}
+{% macro error_handler(errors) %}
+  {% if errors %}
+    {% for error in errors %}
+      <span style="color:red">{{ error }}</span>
+    {% endfor %}
+  {% endif %}
+{% endmacro %}

@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% from "error.html" import error_handler as handler %}
 {% block title %} {{ super() }} {% endblock title %}
 {% block content %}  
 <main>
@@ -21,7 +22,7 @@
                    placeholder=form.original_link.label.text) }}
                 <p>
                   {% set errors = form.original_link.errors %}
-                  {% include "error.html" %}
+                  {{ handler(errors) }}
                 </p>
               </div>
               <div>
@@ -29,7 +30,7 @@
                    placeholder=form.custom_id.label.text) }}
                 <p>
                   {% set errors = form.custom_id.errors %}
-                  {% include "error.html" %}
+                  {{ handler(errors) }}
                 </p>
               </div>
 
