@@ -49,7 +49,21 @@
         </div>
         <div class="col-sm">
           <p class="text-center">
-          <h5 class="text-center">Пример информационного сообщения</h5>
+          <h5 class="text-center">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                {% for category, message in messages %}
+                  {% if category == "not_unique" %}
+                    <span style="color:red">{{ message }}</span>
+                  {% else %}
+                    {% set message, url = message.split('  ') %}
+                      {{ message }}
+                      <a style="color: rgb(9, 231, 9)" href="{{ url }}">{{ url }}</a> 
+                  {% endif %}
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+          </h5>
           </p>
         </div>
         <div class="col-sm">
