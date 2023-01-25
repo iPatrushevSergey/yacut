@@ -2,7 +2,8 @@ from flask import flash, redirect, render_template, url_for
 
 from yacut import app
 from yacut.forms import URLMapForm
-from yacut.functions import create_combined_url, get_unique_short_id
+from yacut.functions import (get_combined_url,
+                             get_unique_short_id)
 from yacut.models import URLMap
 
 
@@ -19,14 +20,12 @@ def url_clipping_view():
                   'not_unique')
             return render_template('cut.html', form=form)
         short_url = domain + path
-        create_combined_url(short_url, form)
+        form.create_combined_url(short_url)
         flash(f'Ваша новая ссылка готова: {short_url}', 'done')
         return redirect(url_for('url_clipping_view'))
     return render_template('cut.html', form=form)
 
 
-@app.route('/<path:short>/')
-def redirect_view(short):
-    short_url = url_for('url_clipping_view', _external=True) + short
-    combined_url = URLMap.query.filter_by(short=short_url).first()
-    return redirect(combined_url.original)
+@app.route('/<path:short_id>/')
+def redirect_view(short_id):
+    return redirect(get_combined_url(short_id).original)

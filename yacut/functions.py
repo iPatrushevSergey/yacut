@@ -1,7 +1,8 @@
 from random import choices
 from string import ascii_letters, digits
 
-from yacut import db
+from flask import url_for
+
 from yacut.models import URLMap
 
 
@@ -12,10 +13,6 @@ def get_unique_short_id(length, domain):
             return path
 
 
-def create_combined_url(short_url, form):
-    combined_url = URLMap(
-        original=form.original_link.data,
-        short=short_url
-    )
-    db.session.add(combined_url)
-    db.session.commit()
+def get_combined_url(short_id):
+    short_url = url_for('url_clipping_view', _external=True) + short_id
+    return URLMap.query.filter_by(short=short_url).first()
