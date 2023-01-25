@@ -8,4 +8,5 @@
     tests
     migrations
  per-file-ignores =
-    __init__.py: F401, E402
+    __init__.py: I004, F401, E402
+    forms.py: I001, I005
