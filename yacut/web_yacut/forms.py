@@ -3,7 +3,7 @@ from wtforms import StringField, SubmitField, URLField
 from wtforms.validators import DataRequired, Length, Optional, URL
 
 from yacut import db
-from yacut.models import URLMap
+from yacut.web_yacut.models import URLMap
 
 
 class URLMapForm(FlaskForm):

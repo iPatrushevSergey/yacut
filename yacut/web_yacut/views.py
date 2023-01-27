@@ -1,10 +1,9 @@
-from flask import flash, redirect, render_template, url_for
+from flask import abort, flash, redirect, render_template, url_for
 
 from yacut import app
-from yacut.forms import URLMapForm
-from yacut.functions import (get_combined_url,
-                             get_unique_short_id)
-from yacut.models import URLMap
+from yacut.utils.functions import get_unique_short_id
+from yacut.web_yacut.forms import URLMapForm
+from yacut.web_yacut.models import URLMap
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -28,4 +27,8 @@ def url_clipping_view():
 
 @app.route('/<path:short_id>/')
 def redirect_view(short_id):
-    return redirect(get_combined_url(short_id).original)
+    short_url = url_for('url_clipping_view', _external=True) + short_id
+    combined_url = URLMap.query.filter_by(short=short_url).first()
+    if combined_url is None:
+        abort(404)
+    return redirect(combined_url.original)
