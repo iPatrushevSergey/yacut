@@ -14,8 +14,8 @@ def create_short_url():
     serializer.validate()
     serializer.create_combined_url()
     data = {
-        'short_link': serializer.short,
         'url': serializer.original,
+        'short_link': serializer.short,
     }
     return jsonify(data), 201
 
