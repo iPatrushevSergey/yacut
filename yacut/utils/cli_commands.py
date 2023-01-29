@@ -4,12 +4,11 @@ import click
 
 from yacut import app, db
 from yacut.models import URLMap
-from yacut.utils.constants import ERROR_TEXT
 from yacut.utils.loggers import commands_logger
 
 
 @app.cli.command('load-urls')
-def load_urls_command():
+def load_urls_command() -> None:
     """
     The function of uploading url links
     to the database.

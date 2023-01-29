@@ -1,10 +1,11 @@
+# Contains basic application settings.
 import logging
 
 from flask import Flask
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 
-from settings import Config
+from yacut.settings import Config
 from yacut.utils.loggers import configure_logging
 
 configure_logging('yacut')

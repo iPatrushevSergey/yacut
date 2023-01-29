@@ -4,7 +4,11 @@ from logging.handlers import RotatingFileHandler
 from yacut.utils.constants import BASE_DIR, DT_FORMAT, ERROR_TEXT, LOG_FORMAT
 
 
-def configure_logging(name):
+def configure_logging(name: str) -> None:
+    """
+    Configures the root logger (the place where logs are saved,
+    logging level, handler, formatter).
+    """
     try:
         log_dir = BASE_DIR / 'logs'
         log_dir.mkdir(exist_ok=True)
@@ -29,6 +33,7 @@ def configure_logging(name):
     logger.info('Приложение `yacut` запущено!')
 
 
+# Creating modular handlers.
 api_logger = logging.getLogger('yacut.api_views')
 view_logger = logging.getLogger('yacut.views')
 commands_logger = logging.getLogger('yacut.utils.cli_commands')
