@@ -1,37 +1,112 @@
-Клонировать репозиторий и перейти в него в командной строке:
+# Проект 21-го спринта "Сервис YaCut"
+
+## Описание
+
+В проекте реализована возможность:
+- укорачивания ссылок - ассоциировать длиную пользовательскую ссылку с короткой,
+которую предлагает сам пользователь.
+На большинстве сайтов адреса страниц довольно длинные. Делиться такими ссылками
+не всегда удобно, а иногда и вовсе невозможно. Удобнее использовать короткие ссылки.
+
+Например, **http://<ваш домен>.ru/ya** и **http://<ваш домен>.ru/777** воспринимаются
+лучше, чем **https://yandex.ru/trainer/backend/12e07d96-31f3-449f-abcf-e468b6a39061/**. 
+
+В проекте также реализована функция логирования с помощью модуля **logging** (логи
+сохраняются по адресу: **YACUT/logs**)
+
+## Технологии
+
+- Python 3.7
+- Flask 2.0.2
+- Flask-SQLAlchemy 2.5.1
+- Flask-Migrate 3.1.0
+- Flask-WTF 1.0.0
+- Jinja2 3.0.3
+- Click 8.0.3
+
+## Подготовка проекта
+
+1. Необходимо сделать **Fork** репозитория:
+```
+https://github.com/iPatrushevSergey/yacut.git
+```
+2. Далее нужно клонировать проект:
+```
+git clone git@github.com:<ваш_username>/yacut.git
+```
+3. Создать и активировать виртуальное окружение:
+
+- MacOS и Linux
+```
+python3 -m venv venv && . venv/bin/activate
+```
+- Windows
+```
+python -m venv venv && . venv/bin/activate
+```
+4. Установить зависимости:
+```
+pip install -r requirements.txt 
+```
+
+## Запуск проекта
 
 ```
-git clone 
+flask run
 ```
 
-```
-cd yacut
-```
+## URL адреса
 
-Cоздать и активировать виртуальное окружение:
+### 1. Создание короткой ссылки:
 
-```
-python3 -m venv venv
-```
+**http://<ваш домен>/**
 
-* Если у вас Linux/macOS
+### 2. Переход по короткой ссылке на оринальный url адрес:
 
-    ```
-    source venv/bin/activate
-    ```
+**http://<ваш домен>/{ваша короткая ссылка}**
 
-* Если у вас windows
+## Примеры API запросов
 
-    ```
-    source venv/scripts/activate
-    ```
+### 1. Создание короткой ссылки:
+POST-запрос /api/id/
 
-Установить зависимости из файла requirements.txt:
+*Обязательное поле*: **url**
 
-```
-python3 -m pip install --upgrade pip
-```
+> Тело запроса:
+>```json
+>{
+>  "url": "string",
+>  "custom_id": "string"
+>}
+>```
 
-```
-pip install -r requirements.txt
-```
+> Ответ:
+>```json
+>{
+>  "url": "string",
+>  "short_link": "string"
+>}
+>```
+
+### 2. Получение длинной ссылки используя короткую ссылку:
+GET-запрос /api/id/{short_id}/
+
+*Обязательные параметры*: **short_id**
+
+> Тело запроса:
+>```json
+>{
+>  "short_id": "string"
+>}
+>`
+
+> Ответ:
+>```json
+>{
+>  "url": "string",
+>}
+>```
+
++ **Author**: Patrushev Sergey
++ **Mail**: PatrushevSergeyVal@yandex.ru
++ **GitHub**: [iPatrushevSergey](https://github.com/iPatrushevSergey)
