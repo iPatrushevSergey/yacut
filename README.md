@@ -1,3 +1,5 @@
+![Python](https://img.shields.io/pypi/pyversions/scrapy?color=brightgreen&style=plastic) ![Flask](https://img.shields.io/badge/flask-2.0.2-brightgreen>)  ![Flask-SQLAlchemy](https://img.shields.io/badge/flask_sqlalchemy-2.5.1-brightgreen>) ![Flask-Migrate](https://img.shields.io/badge/flask_migrate-3.1.0-brightgreen>) ![Flask-WTF](https://img.shields.io/badge/flask_wtf-2.0.2-brightgreen>) ![Jinja2](https://img.shields.io/badge/jinja2-3.0.3-brightgreen>) ![Click](https://img.shields.io/badge/click-8.0.3-brightgreen>)
+
 # Проект 21-го спринта "Сервис YaCut"
 
 ## Описание
