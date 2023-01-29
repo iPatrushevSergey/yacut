@@ -9,6 +9,6 @@
     migrations
  per-file-ignores =
     __init__.py: I004, F401, E402
-    forms.py: I001, I005
-    serializers.py: R506
-    utils/error_handlers.py: N818
+    /yacut/serializers.py: R506
+    /yacut/forms.py: I001, I005
+    /yacut/utils/error_handlers.py: N818
