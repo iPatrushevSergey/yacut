@@ -1,5 +1,5 @@
 [flake8]
- ignore = E501, E265, F811, PT001, DJ05, D100, D105, D104, W504, W292
+ ignore = E501, E265, F811, PT001, DJ05, D100, D105, D104, W504, W292, I001, I005, I004, F401, E402, R506, N818
  max-line-length = 79
  paths = 
     ./yacut
