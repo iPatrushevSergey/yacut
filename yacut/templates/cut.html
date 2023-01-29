@@ -58,7 +58,7 @@
                     {% set immutable_message = message[:26] %}
                     {% set url = message[26:] %}
                       {{ immutable_message }}
-                      <a style="color: rgb(9, 231, 9)" href="{{ url }}">{{ url }}</a> 
+                      <a href="{{ url }}">{{ url }}</a> 
                   {% endif %}
                 {% endfor %}
               {% endif %}

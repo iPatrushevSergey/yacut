@@ -21,7 +21,7 @@ def create_short_url():
     return jsonify(data), 201
 
 
-@app.route('/api/id/<path:short_id>/', methods=['GET'])
+@app.route('/api/id/<string:short_id>/', methods=['GET'])
 def get_original_url(short_id):
     combined_url = URLMap.query.filter_by(short=short_id).first()
     if combined_url is None:

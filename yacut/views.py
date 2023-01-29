@@ -19,11 +19,11 @@ def url_clipping_view():
         form.create_combined_url(short_id)
         short_url = url_for('url_clipping_view', _external=True) + short_id
         flash(f'Ваша новая ссылка готова: {short_url}', 'done')
-        return redirect(url_for('url_clipping_view'))
+        return render_template('cut.html', form=form)
     return render_template('cut.html', form=form)
 
 
-@app.route('/<path:short_id>/')
+@app.route('/<string:short_id>')
 def redirect_view(short_id):
     combined_url = URLMap.query.filter_by(short=short_id).first_or_404()
     return redirect(combined_url.original, code=302)
