@@ -1,4 +1,4 @@
-from typing import Dict, Optional, Union
+from typing import Dict, Union
 
 from flask import jsonify, request, url_for
 from flask.wrappers import Response
@@ -37,7 +37,7 @@ def get_original_url(short_id: str) -> Union[InvalidAPIUsage, Response]:
     Taking a user unique short link, searches for the corresponding
     object and using a long link redirects to it (api requests).
     """
-    combined_url: Optional[URLMap] = URLMap.query.filter_by(short=short_id).first()
+    combined_url = URLMap.query.filter_by(short=short_id).first()
     if combined_url is None:
         raise InvalidAPIUsage('Указанный id не найден', 404)
     return jsonify(combined_url.to_dict()), 200

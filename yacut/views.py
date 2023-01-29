@@ -45,5 +45,5 @@ def redirect_view(short_id) -> Response:
     Taking a user unique short link, searches for the corresponding
     object and using a long link redirects to it (web requests).
     """
-    combined_url: URLMap = URLMap.query.filter_by(short=short_id).first_or_404()
+    combined_url = URLMap.query.filter_by(short=short_id).first_or_404()
     return redirect(combined_url.original)
