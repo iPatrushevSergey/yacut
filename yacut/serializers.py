@@ -1,20 +1,18 @@
 import re
 
-from flask import url_for
-
 from yacut import db
 from yacut.models import URLMap
 from yacut.utils.error_handlers import InvalidAPIUsage
 from yacut.utils.functions import get_unique_short_id
 
 
-def is_data(data):
-    if data is None:
-        raise InvalidAPIUsage('Отсутствует тело запроса')
-
-
 class URLMapSerializer:
     LENGTH_OF_SHORT_ID = 16
+
+    def __new__(cls, *args, **kwargs):
+        if args[0] is None:
+            raise InvalidAPIUsage('Отсутствует тело запроса')
+        return super().__new__(cls)
 
     def __init__(self, data):
         self.original = data.get('url', 'no field')
@@ -35,7 +33,6 @@ class URLMapSerializer:
             r"^(https?:\/\/)?([\w.\-]+)\.([a-z]{2,6}\.?)(\/[\w.]*)*\/?$"
         )
         url_match = re.fullmatch(pattern, self.original)
-        print(url_match)
         if not url_match:
             raise InvalidAPIUsage('Введён некорректный URL')
 
@@ -49,7 +46,6 @@ class URLMapSerializer:
         else:
             pattern = r"[a-zA-Z0-9]+"
             short_id_match = re.fullmatch(pattern, self.short)
-            print(short_id_match)
             if not short_id_match:
                 raise InvalidAPIUsage('Указано недопустимое имя для короткой ссылки')
 

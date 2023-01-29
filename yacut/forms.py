@@ -30,3 +30,4 @@ class URLMapForm(FlaskForm):
         )
         db.session.add(combined_url)
         db.session.commit()
+        return combined_url

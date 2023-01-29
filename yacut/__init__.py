@@ -7,8 +7,7 @@ from flask_sqlalchemy import SQLAlchemy
 from settings import Config
 from yacut.utils.loggers import configure_logging
 
-configure_logging()
-logging.info('Приложение `yacut` запущено!')
+configure_logging('yacut')
 app = Flask(__name__)
 app.config.from_object(Config)
 db = SQLAlchemy(app)

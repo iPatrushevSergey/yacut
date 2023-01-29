@@ -1,11 +1,11 @@
 import csv
-import logging
 
 import click
 
 from yacut import app, db
 from yacut.models import URLMap
 from yacut.utils.constants import ERROR_TEXT
+from yacut.utils.loggers import commands_logger
 
 
 @app.cli.command('load-urls')
@@ -24,12 +24,13 @@ def load_urls_command():
                 db.session.commit()
                 counter += 1
         click.echo(f'Downloaded urls: {counter}')
+        commands_logger.info(f'{counter} files uploaded successfully')
     except OSError as error:
-        logging.error(ERROR_TEXT, error)
+        commands_logger.error(error)
         exit()
     except csv.Error as error:
-        logging.error(ERROR_TEXT, error)
+        commands_logger.error(error)
         exit()
     except Exception as error:
-        logging.error(ERROR_TEXT, error)
+        commands_logger.exception(error)
         exit()

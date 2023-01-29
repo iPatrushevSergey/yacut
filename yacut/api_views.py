@@ -2,14 +2,14 @@ from flask import jsonify, request, url_for
 
 from yacut import app
 from yacut.models import URLMap
-from yacut.serializers import URLMapSerializer, is_data
+from yacut.serializers import URLMapSerializer
 from yacut.utils.error_handlers import InvalidAPIUsage
+from yacut.utils.loggers import api_logger
 
 
 @app.route('/api/id/', methods=['POST'])
 def create_short_url():
     data = request.get_json()
-    is_data(data)
     serializer = URLMapSerializer(data)
     serializer.validate()
     serializer.create_combined_url()
@@ -18,6 +18,7 @@ def create_short_url():
         'url': serializer.original,
         'short_link': domain + serializer.short,
     }
+    api_logger.info(f'Короткая ссылка `{serializer.short}` успешно создана')
     return jsonify(data), 201
 
 

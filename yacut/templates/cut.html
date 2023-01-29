@@ -55,10 +55,10 @@
                   {% if category == "not_unique" %}
                     <span style="color:red">{{ message }}</span>
                   {% else %}
-                    {% set immutable_message = message[:26] %}
-                    {% set url = message[26:] %}
-                      {{ immutable_message }}
-                      <a href="{{ url }}">{{ url }}</a> 
+                    {{ message }}
+                    <a href="{{ url_for('redirect_view', short_id=combined_url.short, _external=True) }}">
+                      {{ url_for('redirect_view', short_id=combined_url.short, _external=True) }}
+                    </a> 
                   {% endif %}
                 {% endfor %}
               {% endif %}
