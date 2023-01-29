@@ -3,7 +3,7 @@ import csv
 import click
 
 from yacut import app, db
-from yacut.web_yacut.models import URLMap
+from yacut.models import URLMap
 
 
 @app.cli.command('load-urls')

@@ -1,8 +1,8 @@
 original,short
-http://ya.ru,http://127.0.0.1:5000/ya
-http://google.com,http://127.0.0.1:5000/google
-http://mail.ru,http://127.0.0.1:5000/mail
-http://rambler.ru,http://127.0.0.1:5000/rambler
-http://yahoo.com,http://127.0.0.1:5000/yahoo
-http://bing.com,http://127.0.0.1:5000/bing
-http://baidu.com,http://127.0.0.1:5000/baidy
+https://ya.ru,ya
+https://google.com,google
+https://mail.ru,mail
+https://rambler.ru,rambler
+https://yahoo.com,yahoo
+https://bing.com,bing
+https://baidu.com,baidy

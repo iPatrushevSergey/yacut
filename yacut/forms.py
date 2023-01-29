@@ -3,7 +3,7 @@ from wtforms import StringField, SubmitField, URLField
 from wtforms.validators import DataRequired, Length, Optional, URL
 
 from yacut import db
-from yacut.web_yacut.models import URLMap
+from yacut.models import URLMap
 
 
 class URLMapForm(FlaskForm):
@@ -23,10 +23,10 @@ class URLMapForm(FlaskForm):
     )
     submit = SubmitField('Создать')
 
-    def create_combined_url(self, short_url):
+    def create_combined_url(self, short_id):
         combined_url = URLMap(
             original=self.original_link.data,
-            short=short_url
+            short=short_id
         )
         db.session.add(combined_url)
         db.session.commit()
