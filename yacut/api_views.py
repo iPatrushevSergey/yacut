@@ -6,6 +6,7 @@ from flask.wrappers import Response
 from yacut import app
 from yacut.models import URLMap
 from yacut.serializers import URLMapSerializer
+from yacut.settings import ERROR_TEXT
 from yacut.utils.error_handlers import InvalidAPIUsage
 from yacut.utils.loggers import api_logger
 
@@ -20,7 +21,13 @@ def create_short_url() -> Response:
     """
     data: Dict = request.get_json()
     serializer: URLMapSerializer = URLMapSerializer(data)
-    serializer.validate()
+    try:
+        serializer.validate()
+    except Exception as error:
+        api_logger.error(ERROR_TEXT.format(repr(error)))
+        raise InvalidAPIUsage(
+            'Произошла непредвиденная ошибка, с которой нужно разобраться'
+        )
     serializer.create_combined_url()
     domain: str = url_for('url_clipping_view', _external=True)
     data: Dict = {

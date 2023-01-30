@@ -3,8 +3,10 @@ from typing import Dict, Optional, Tuple
 
 from yacut import db
 from yacut.models import URLMap
+from yacut.settings import ERROR_TEXT
 from yacut.utils.error_handlers import InvalidAPIUsage
 from yacut.utils.functions import get_unique_short_id
+from yacut.utils.loggers import serializer_logger
 
 
 class URLMapSerializer:
@@ -101,5 +103,9 @@ class URLMapSerializer:
             original=self.original,
             short=self.short
         )
-        db.session.add(combined_url)
-        db.session.commit()
+        try:
+            db.session.add(combined_url)
+            db.session.commit()
+        except Exception as error:
+            db.session.rollback()
+            serializer_logger.error(ERROR_TEXT.format(repr(error)))

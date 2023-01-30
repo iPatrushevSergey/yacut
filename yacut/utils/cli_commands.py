@@ -1,4 +1,5 @@
 import csv
+import os
 
 import click
 
@@ -26,10 +27,11 @@ def load_urls_command() -> None:
         commands_logger.info(f'{counter} files uploaded successfully')
     except OSError as error:
         commands_logger.error(error)
-        exit()
+        sys.exit(ERROR_TEXT.format(repr(error)))
     except csv.Error as error:
         commands_logger.error(error)
-        exit()
+        sys.exit(ERROR_TEXT.format(repr(error)))
     except Exception as error:
+        db.session.rollback()
         commands_logger.exception(error)
-        exit()
+        sys.exit(ERROR_TEXT.format(repr(error)))

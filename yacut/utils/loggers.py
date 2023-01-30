@@ -1,7 +1,8 @@
 import logging
+import sys
 from logging.handlers import RotatingFileHandler
 
-from yacut.utils.constants import BASE_DIR, DT_FORMAT, ERROR_TEXT, LOG_FORMAT
+from yacut.settings import BASE_DIR, DT_FORMAT, ERROR_TEXT, LOG_FORMAT
 
 
 def configure_logging(name: str) -> None:
@@ -9,25 +10,28 @@ def configure_logging(name: str) -> None:
     Configures the root logger (the place where logs are saved,
     logging level, handler, formatter).
     """
+    logger = logging.getLogger(name)
+    logger.setLevel(logging.INFO)
+    stream_handler = logging.StreamHandler()
+    formatter = logging.Formatter(LOG_FORMAT, DT_FORMAT)
+    stream_handler.setFormatter(formatter)
+    logger.addHandler(stream_handler)
     try:
         log_dir = BASE_DIR / 'logs'
         log_dir.mkdir(exist_ok=True)
         log_file = log_dir / 'yacut.log'
     except FileExistsError as error:
-        logging.error(ERROR_TEXT, error)
-        exit()
+        logger.error(ERROR_TEXT.format(repr(error)))
+        sys.exit(ERROR_TEXT.format(repr(error)))
     except FileNotFoundError as error:
-        logging.error(ERROR_TEXT, error)
-        exit()
+        logger.error(ERROR_TEXT.format(repr(error)))
+        sys.exit(ERROR_TEXT.format(repr(error)))
     except Exception as error:
-        logging.exception(ERROR_TEXT, error)
-        exit()
-    logger = logging.getLogger(name)
-    logger.setLevel(logging.DEBUG)
+        logger.exception(ERROR_TEXT.format(repr(error)))
+        sys.exit(ERROR_TEXT.format(repr(error)))
     rotating_handler = RotatingFileHandler(
         log_file, maxBytes=10 ** 6, backupCount=10, encoding='utf-8'
     )
-    formatter = logging.Formatter(LOG_FORMAT, datefmt=DT_FORMAT)
     rotating_handler.setFormatter(formatter)
     logger.addHandler(rotating_handler)
     logger.info('Приложение `yacut` запущено!')
@@ -35,5 +39,7 @@ def configure_logging(name: str) -> None:
 
 # Creating modular handlers.
 api_logger = logging.getLogger('yacut.api_views')
-view_logger = logging.getLogger('yacut.views')
 commands_logger = logging.getLogger('yacut.utils.cli_commands')
+serializer_logger = logging.getLogger('yacut.serializers')
+view_logger = logging.getLogger('yacut.views')
+
