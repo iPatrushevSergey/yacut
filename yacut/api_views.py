@@ -2,6 +2,7 @@ from typing import Dict, Union
 
 from flask import jsonify, request, url_for
 from flask.wrappers import Response
+from werkzeug.exceptions import InternalServerError
 
 from yacut import app
 from yacut.models import URLMap
@@ -23,10 +24,10 @@ def create_short_url() -> Response:
     serializer: URLMapSerializer = URLMapSerializer(data)
     try:
         serializer.validate()
-    except Exception as error:
+    except InternalServerError as error:
         api_logger.error(ERROR_TEXT.format(repr(error)))
         raise InvalidAPIUsage(
-            'Произошла непредвиденная ошибка, с которой нужно разобраться'
+            'Что-то пошло не так, мы работаем над этим'
         )
     serializer.create_combined_url()
     domain: str = url_for('url_clipping_view', _external=True)

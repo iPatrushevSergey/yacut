@@ -1,6 +1,8 @@
 import re
 from typing import Dict, Optional, Tuple
 
+from sqlalchemy.orm import Session
+
 from yacut import db
 from yacut.models import URLMap
 from yacut.settings import ERROR_TEXT
@@ -104,8 +106,9 @@ class URLMapSerializer:
             short=self.short
         )
         try:
-            db.session.add(combined_url)
-            db.session.commit()
+            with Session(db.engine) as session:
+                session.add(combined_url)
+                session.commit()
         except Exception as error:
-            db.session.rollback()
+            session.rollback()
             serializer_logger.error(ERROR_TEXT.format(repr(error)))
