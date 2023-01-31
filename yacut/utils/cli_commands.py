@@ -1,10 +1,11 @@
 import csv
-import os
+import sys
 
 import click
 
 from yacut import app, db
 from yacut.models import URLMap
+from yacut.settings import ERROR_TEXT
 from yacut.utils.loggers import commands_logger
 
 

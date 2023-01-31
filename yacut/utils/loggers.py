@@ -42,4 +42,3 @@ api_logger = logging.getLogger('yacut.api_views')
 commands_logger = logging.getLogger('yacut.utils.cli_commands')
 serializer_logger = logging.getLogger('yacut.serializers')
 view_logger = logging.getLogger('yacut.views')
-
